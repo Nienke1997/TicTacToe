@@ -8,3 +8,11 @@ It can be played in landscape and portrait layout.
 
 Furthermore, the game consists of a friendly user interface that indicates the moves with specific colours
 and emphasizes the 'reset' button once the game is over.
+
+
+Screenshots:
+
+![alt text](https://github.com/Nienke1997/TicTacToe/blob/master/Webp.net-resizeimage%20(3).jpg)
+![alt text](https://github.com/Nienke1997/TicTacToe/blob/master/Webp.net-resizeimage%20(4).jpg)
+![alt text](https://github.com/Nienke1997/TicTacToe/blob/master/Webp.net-resizeimage%20(5).jpg)
+![alt text](https://github.com/Nienke1997/TicTacToe/blob/master/Webp.net-resizeimage%20(6).jpg)
