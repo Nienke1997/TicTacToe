@@ -13,6 +13,7 @@ public class Game implements Serializable {
     private int totalButton = 9;
     private Boolean gameOver;
 
+    // create the board, set the start at player 1
     public Game() {
         board = new TileState[BOARD_SIZE][BOARD_SIZE];
         for(int i=0; i<BOARD_SIZE; i++)
@@ -25,8 +26,10 @@ public class Game implements Serializable {
     }
 
     public TileState choose(int row, int column) {
+        // if the game is over, the tiles cannot be clicked anymore.
         if (gameOver)
             return TileState.INVALID;
+        // if a tile is blank, change the tile to cross or circle correspondingly
         else if (board[row][column] == TileState.BLANK){
             if (playerOneTurn){
                 board[row][column] = TileState.CROSS;
@@ -46,26 +49,44 @@ public class Game implements Serializable {
 
     public GameState won(){
 
-        // check for wins in rows and columns
+        // Iterate over the board to see the moves of cross and circle
         for (int i = 0; i < BOARD_SIZE; i++) {
             int crossCountRow = 0, circleCountRow = 0;
             int crossCountColumn = 0, circleCountColumn = 0;
 
             for (int j = 0; j < BOARD_SIZE; j++) {
-                if (board[i][j] == TileState.CROSS) ++crossCountRow;
-                else if (board[i][j] == TileState.CIRCLE) ++circleCountRow;
-                if (board[j][i] == TileState.CROSS) ++crossCountColumn;
-                else if (board[j][i] == TileState.CIRCLE) ++circleCountColumn;
+                if (board[i][j] == TileState.CROSS){
+                    ++crossCountRow;
+                }
+                else if (board[i][j] == TileState.CIRCLE){
+                    ++circleCountRow;
+                }
+                if (board[j][i] == TileState.CROSS){
+                    ++crossCountColumn;
+                }
+                else if (board[j][i] == TileState.CIRCLE) {
+                    ++circleCountColumn;
+                }
             }
+            // check for wins in rows
             if (crossCountRow == 3 || circleCountRow == 3) {
                 gameOver = true;
-                if (crossCountRow == 3) return GameState.PLAYER_ONE;
-                else return GameState.PLAYER_TWO;
+                if (crossCountRow == 3){
+                    return GameState.PLAYER_ONE;
+                }
+                else{
+                    return GameState.PLAYER_TWO;
+                }
             }
+            // check for wins in column
             if (crossCountColumn == 3 || circleCountColumn == 3) {
                 gameOver = true;
-                if (crossCountColumn == 3) return GameState.PLAYER_ONE;
-                else return GameState.PLAYER_TWO;
+                if (crossCountColumn == 3){
+                    return GameState.PLAYER_ONE;
+                }
+                else{
+                    return GameState.PLAYER_TWO;
+                }
             }
         }
         // check for diagonal options

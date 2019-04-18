@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // make sure the tiles are in the correct position after saving or switching of view
         if (savedInstanceState != null){
             game = (Game) savedInstanceState.getSerializable("Game");
             for (int i = 0; i < BOARD_SIZE; i++){
@@ -52,16 +53,22 @@ public class MainActivity extends AppCompatActivity {
     public void tileClicked(View view) {
         Button button = (Button)view;
 
+        // get the coordinates of the tile and make them into rows and columns.
         float xcor = button.getX();
         float ycor = button.getY();
 
         int row = (int) xcor/200;
-        if (row == 3) --row;
+        if (row == 3){
+            --row;
+        }
         int column = (int) ycor/200;
-        if (column == 3) --column;
+        if (column == 3){
+            --column;
+        }
 
         TileState state = game.choose(row, column);
 
+        // define what to do when a tile is cross, circle, or invalid
         switch(state) {
             case CROSS:
                 button.setText("X");
@@ -74,10 +81,16 @@ public class MainActivity extends AppCompatActivity {
             case INVALID:
                 break;
         }
-
+        // button that tells the user what is going on
         Button progress = findViewById(R.id.Progress);
+
+        // button to reset
         Button reset = findViewById(R.id.reset);
+
+        // check if game is won
         GameState gState = game.won();
+
+        // set the UI according to the gamestate.
         if (gState == GameState.IN_PROGRESS) {
             progress.setText("Game in progress");
         }
@@ -101,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void resetClicked(View view) {
         game = new Game();
-
+        // make a list of the buttons and make them blank
         List<Button> list = new ArrayList<>();
         Button button1 = findViewById(R.id.button1);
         list.add(button1);
